@@ -146,12 +146,12 @@ public class TerminalKeyListener implements OnKeyListener, OnSharedPreferenceCha
 				return false;
 			}
 
-			// check for terminal resizing keys
+			// VOLUME UP/DOWN to other key. for IS01
 			if (keyCode == KeyEvent.KEYCODE_VOLUME_UP) {
-				bridge.increaseFontSize();
+                                bridge.transport.write('|');
 				return true;
 			} else if(keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
-				bridge.decreaseFontSize();
+                                bridge.transport.write('_');
 				return true;
 			}
 
@@ -204,11 +204,14 @@ public class TerminalKeyListener implements OnKeyListener, OnSharedPreferenceCha
 						key = 0x7F;
 				}
 
+                                /**
+                                 ** USE kigou. for IS01 
 				// handle pressing f-keys
 				if ((hardKeyboard && !hardKeyboardHidden)
 						&& (curMetaState & KeyEvent.META_SHIFT_ON) != 0
 						&& sendFunctionKey(keyCode))
-					return true;
+                                                return true;
+                                **/
 
 				if (key < 0x80)
 					bridge.transport.write(key);
@@ -311,10 +314,8 @@ public class TerminalKeyListener implements OnKeyListener, OnSharedPreferenceCha
 					selectionArea.decrementColumn();
 					bridge.redraw();
 				} else {
-					((vt320) buffer).keyPressed(vt320.KEY_LEFT, ' ',
-							getStateForBuffer());
-					metaState &= ~META_TRANSIENT;
-					bridge.tryKeyVibrate();
+                                    // IS01 can not use this button
+                                    bridge.decreaseFontSize();
 				}
 				return true;
 
@@ -323,10 +324,8 @@ public class TerminalKeyListener implements OnKeyListener, OnSharedPreferenceCha
 					selectionArea.decrementRow();
 					bridge.redraw();
 				} else {
-					((vt320) buffer).keyPressed(vt320.KEY_UP, ' ',
-							getStateForBuffer());
-					metaState &= ~META_TRANSIENT;
-					bridge.tryKeyVibrate();
+                                    // IS01 can not use this button
+                                    bridge.increaseFontSize();
 				}
 				return true;
 
@@ -335,10 +334,8 @@ public class TerminalKeyListener implements OnKeyListener, OnSharedPreferenceCha
 					selectionArea.incrementRow();
 					bridge.redraw();
 				} else {
-					((vt320) buffer).keyPressed(vt320.KEY_DOWN, ' ',
-							getStateForBuffer());
-					metaState &= ~META_TRANSIENT;
-					bridge.tryKeyVibrate();
+                                    // IS01 can not use this button
+                                    bridge.decreaseFontSize();
 				}
 				return true;
 
@@ -347,10 +344,8 @@ public class TerminalKeyListener implements OnKeyListener, OnSharedPreferenceCha
 					selectionArea.incrementColumn();
 					bridge.redraw();
 				} else {
-					((vt320) buffer).keyPressed(vt320.KEY_RIGHT, ' ',
-							getStateForBuffer());
-					metaState &= ~META_TRANSIENT;
-					bridge.tryKeyVibrate();
+                                    // IS01 can not use this button
+                                    bridge.increaseFontSize();
 				}
 				return true;
 
@@ -384,6 +379,14 @@ public class TerminalKeyListener implements OnKeyListener, OnSharedPreferenceCha
 				bridge.redraw();
 
 				return true;
+                        case 92: // e.kao.ki key => CTRL for IS01
+                            metaPress(META_CTRL_ON);
+                            bridge.redraw();
+                            return true;
+                        case 93: // mozi key => ESC for IS01
+                            sendEscape();
+                            bridge.redraw();
+                            return true;
 			}
 
 		} catch (IOException e) {
