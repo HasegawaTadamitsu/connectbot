@@ -14,3 +14,18 @@ Download the ProGuard distribution from its website at http://proguard.sourcefor
 When running ant to build ConnectBot and engage ProGuard, use:
 
 ant proguard release
+
+------------------------------------
+this program  for au IS01 by SHARP in Japan
+
+1. can use kigou
+    Shift + 1 => !
+
+2.key map change
+ e.kao.ki key => CTRL
+ mozi  key    => ESC
+ Volume UP    => |
+ Volume Down  => _
+ DPAD.LEFT/DOWN => font size  down
+ DPAD.RIGHT/UP =>  font size  up
+
