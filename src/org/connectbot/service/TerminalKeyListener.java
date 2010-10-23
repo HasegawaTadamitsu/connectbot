@@ -314,8 +314,10 @@ public class TerminalKeyListener implements OnKeyListener, OnSharedPreferenceCha
 					selectionArea.decrementColumn();
 					bridge.redraw();
 				} else {
-                                    // IS01 can not use this button
-                                    bridge.decreaseFontSize();
+					((vt320) buffer).keyPressed(vt320.KEY_LEFT, ' ',
+							getStateForBuffer());
+					metaState &= ~META_TRANSIENT;
+					bridge.tryKeyVibrate();
 				}
 				return true;
 
@@ -324,8 +326,10 @@ public class TerminalKeyListener implements OnKeyListener, OnSharedPreferenceCha
 					selectionArea.decrementRow();
 					bridge.redraw();
 				} else {
-                                    // IS01 can not use this button
-                                    bridge.increaseFontSize();
+					((vt320) buffer).keyPressed(vt320.KEY_UP, ' ',
+							getStateForBuffer());
+					metaState &= ~META_TRANSIENT;
+					bridge.tryKeyVibrate();
 				}
 				return true;
 
@@ -334,8 +338,10 @@ public class TerminalKeyListener implements OnKeyListener, OnSharedPreferenceCha
 					selectionArea.incrementRow();
 					bridge.redraw();
 				} else {
-                                    // IS01 can not use this button
-                                    bridge.decreaseFontSize();
+					((vt320) buffer).keyPressed(vt320.KEY_DOWN, ' ',
+							getStateForBuffer());
+					metaState &= ~META_TRANSIENT;
+					bridge.tryKeyVibrate();
 				}
 				return true;
 
@@ -344,8 +350,10 @@ public class TerminalKeyListener implements OnKeyListener, OnSharedPreferenceCha
 					selectionArea.incrementColumn();
 					bridge.redraw();
 				} else {
-                                    // IS01 can not use this button
-                                    bridge.increaseFontSize();
+					((vt320) buffer).keyPressed(vt320.KEY_RIGHT, ' ',
+							getStateForBuffer());
+					metaState &= ~META_TRANSIENT;
+					bridge.tryKeyVibrate();
 				}
 				return true;
 
